@@ -84,16 +84,70 @@ GsCore 自己的网页控制台改不了——它的前端是编译好的 dist�
 
 ## 怎么生效
 
-### 第一步：准备 GsCore
+### 第零步：装 GsCore（已经有了就跳过这节）
 
-GsCore 跑起来，记下端口（默认 8765）和 `WS_TOKEN`。
+GsCore 不是单文件程序，是个 Python 服务，得先装起来。
+
+**1. 准备 uv**
+
+GsCore 用 uv 管依赖，别用系统 pip。
+
+```bash
+# Windows
+winget install --id=astral-sh.uv -e
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**2. 拉代码、装依赖**
+
+```bash
+git clone https://github.com/Genshin-bots/gsuid_core.git
+cd gsuid_core
+uv sync --python 3.12
+```
+
+**3. 先起一次**
+
+```bash
+uv run core
+```
+
+第一次启动会在 `data/` 下生成配置、数据库、日志。能看到 `http://127.0.0.1:8765/app` 打开就成功了，按 Ctrl+C 停下。
+
+**4. 装游戏插件**
+
+浏览器开 `http://127.0.0.1:8765/app`，进插件页搜名字装：
+
+- `GenshinUID` —— 原神
+- `StarRailUID` —— 崩铁
+- `ZZZeroUID` —— 绝区零
+
+命令行装也行：
+
+```bash
+cd gsuid_core/gsuid_core/plugins
+git clone https://github.com/KimigaiiWuyi/GenshinUID.git
+```
+
+星铁和绝区零的仓库地址以控制台里显示的为准，别照抄这里——那两个的镜像换过几次。
+
+装完重启 core，日志里应该出现插件加载成功的记录。
+
+**5. 记下 WS_TOKEN**
+
+控制台 → 配置 → 找 `WS_TOKEN`。桥要填同一个值。
+
+桥和 GsCore 在同一台机器上、走回环地址的话，这个可以留空——GsCore 的 `TRUSTED_IPS` 包含 `localhost` / `127.0.0.1` / `::1`。
+
+### 第一步：启动 GsCore
 
 ```bash
 uv run core                    # 默认 127.0.0.1:8765
 uv run core --port 8766        # 或者换个端口
 ```
 
-`WS_TOKEN` 在 GsCore 的配置里。如果桥和 GsCore 在同一台机器上（回环地址），token 可以留空——GsCore 的 `TRUSTED_IPS` 包含 `localhost` / `127.0.0.1` / `::1`。
+记下端口，等下填到桥的 `gscoreUrl` 里。
 
 ### 第二步：装依赖
 
