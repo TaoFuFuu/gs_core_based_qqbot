@@ -1,0 +1,19 @@
+{
+  "name": "gscore-qqbridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "让 GsCore 直接对接 QQ 官方机器人，不需要 AstrBot 中转",
+  "main": "bridge.mjs",
+  "scripts": {
+    "start": "node bridge.mjs",
+    "install:deps": "npm install --omit=dev --registry https://registry.npmmirror.com"
+  },
+  "dependencies": {
+    "@tencent-connect/qqbot-nodejs": "^1.0.5",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

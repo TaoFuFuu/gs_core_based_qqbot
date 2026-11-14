@@ -1,0 +1,9 @@
+{
+  "gscoreUrl": "ws://127.0.0.1:8765",
+  "botId": "qq_direct",
+  "token": "",
+  "accountId": "gscore",
+  "appId": "",
+  "appSecret": "",
+  "logLevel": "info"
+}
